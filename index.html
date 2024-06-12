@@ -1,14 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My first Web Page</title>
+    <title>Carada</title>
   </head>
+
   <body>
-    <h1>Hello</h1>
-    I am Pattiya. <br />
-    This is my first website. <br />
-    <img src="cat.jpg" alt="picture of a cat" width="200" />
+    <h1>Top Used Cars</h1>
+    <!-- 
+    <table border="1">
+      <tr>
+        <td colspan="2">data 1</td>
+        <td>data 2</td>
+        <td>data 3</td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">data 4</td>
+        <td>data 5</td>
+        <td>data 6</td>
+      </tr>
+
+      <tr>
+        <td>data 7</td>
+        <td>data 8</td>
+        <td>data 9</td>
+      </tr>
+    </table> 
+  -->
+
+    <table>
+      <thead></thead>
+      <tbody>
+        <tr>
+          <td>
+            <table border="0">
+              <tr>
+                <td colspan="3">
+                  <img src="./img/car.webp" />
+                </td>
+              </tr>
+              <tr>
+                <!-- 
+                colspan = "2" -> it covers 2 columns **merge 2 columns together**
+                rowspan = "2" -> it covers 2 rows **merge 2 rows together**
+                -->
+                <td colspan="2">Toyota Hilux Revo</td>
+                <td rowspan="2">19 Cars</td>
+              </tr>
+              <tr>
+                <td>Start from</td>
+                <td>379,4000 Baht</td>
+              </tr>
+            </table>
+          </td>
+
+          <td>
+            <table border="0">
+              <tr>
+                <td colspan="3">
+                  <img src="./img/car.webp" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">Toyota Hilux Revo</td>
+                <td rowspan="2">19 Cars</td>
+              </tr>
+              <tr>
+                <td>Start from</td>
+                <td>379,4000 Baht</td>
+              </tr>
+            </table>
+          </td>
+
+          <td>
+            <table border="0">
+              <tr>
+                <td colspan="3">
+                  <img src="./img/car.webp" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">Toyota Hilux Revo</td>
+                <td rowspan="2">19 Cars</td>
+              </tr>
+              <tr>
+                <td>Start from</td>
+                <td>379,4000 Baht</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
+
+  <footer>
+    <p>Copyright by <a href="about.html">Pattiya</a></p>
+  </footer>
 </html>
