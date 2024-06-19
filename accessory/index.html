@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessories shop</title>
+    <link rel="stylesheet" href="/css/global.css" />
+  </head>
+  <body>
+    <h1>Car Accessories</h1>
+
+    <label for="accessories">Select car accessories</label>
+    <select id="accessories" name="accessories">
+      <option value="1">Car Cover</option>
+      <option value="2">Seat Covers</option>
+      <option value="3">Floor Mats</option>
+      <option value="4">Door Visor</option>
+    </select>
+    <br />
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" />
+    <br />
+    <button type="button" onclick="addToProductList()">Add</button>
+
+    <h2>Product List</h2>
+    <table id="productList">
+      <tr>
+        <th>Accessory</th>
+        <th>Amount</th>
+        <th>Price</th>
+      </tr>
+    </table>
+
+    <p>Total vat (7%): $<span id="totalVat"></span></p>
+    <p>Total price : $<span id="totalPrice"></span></p>
+
+    <script>
+      var netPrice = 0;
+      var netVat = 0;
+
+      function addToProductList() {
+        var accessory = document.getElementById("accessories").value;
+        var name =
+          document.getElementById("accessories").options[
+            document.getElementById("accessories").selectedIndex
+          ].text;
+        var amount = document.getElementById("amount").value;
+        var price = calculatePrice(accessory);
+
+        var table = document.getElementById("productList");
+        var row = table.insertRow(-1);
+        var accessoryCell = row.insertCell(0);
+        var amountCell = row.insertCell(1);
+        var priceCell = row.insertCell(2);
+
+        accessoryCell.innerHTML = name;
+        amountCell.innerHTML = amount;
+        priceCell.innerHTML = "$" + price;
+
+        updateTotalPrice(price, amount);
+      }
+
+      function calculatePrice(accessory) {
+        switch (accessory) {
+          case "1":
+            return 100;
+          case "2":
+            return 30;
+          case "3":
+            return 50;
+          case "4":
+            return 40;
+          default:
+            return 0;
+        }
+      }
+
+      function updateTotalPrice(price, amount) {
+        var totalPrice = document.getElementById("totalPrice");
+        var totalVat = document.getElementById("totalVat");
+
+        //Calculate total price
+        netPrice += price * amount;
+
+        //Calculate total vat
+        netVat = netPrice * 0.07;
+
+        totalPrice.textContent = netPrice + netVat;
+        totalVat.textContent = netVat.toFixed(2);
+      }
+    </script>
+  </body>
+</html>

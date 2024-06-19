@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vat Calculator</title>
+  </head>
+  <body>
+    <h1>VAT Calculator</h1>
+    <label for="grossPrice">Gross Price</label>
+    <input type="number" id="grossPrice" step="0.01" />
+    <button onclick="calculateVat()">Calculate net price</button> <br />
+    <p>Net Price is <span id="netPrice"></span></p>
+    <script>
+      function calculateVat() {
+        let grossPrice = document.getElementById("grossPrice").value;
+        let vat = 0.07;
+        let netPrice = grossPrice * (1 + vat);
+
+        document.getElementById("netPrice").textContent = netPrice.toFixed(2);
+      }
+    </script>
+  </body>
+</html>
