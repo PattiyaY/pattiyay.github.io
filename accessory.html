@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accessories shop</title>
     <link rel="stylesheet" href="./css/global.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <h1>Car Accessories</h1>
@@ -41,23 +46,28 @@
       var netVat = 0;
 
       function addToProductList() {
-        var accessory = document.getElementById("accessories").value;
-        var name =
-          document.getElementById("accessories").options[
-            document.getElementById("accessories").selectedIndex
-          ].text;
-        var amount = document.getElementById("amount").value;
+        // var accessory = document.getElementById("accessories").value;
+        var accessory = $("#accessories").val();
+
+        // var name =
+        //   document.getElementById("accessories").options[
+        //     document.getElementById("accessories").selectedIndex
+        //   ].text;
+        var name = $("#accessories option:selected").text();
+        // var amount = document.getElementById("amount").value;
+        var amount = $("#amount").val();
         var price = calculatePrice(accessory);
 
-        var table = document.getElementById("productList");
-        var row = table.insertRow(-1);
-        var accessoryCell = row.insertCell(0);
-        var amountCell = row.insertCell(1);
-        var priceCell = row.insertCell(2);
+        // var table = document.getElementById("productList");
+        var table = $("#productList");
+        var row = $("<tr></tr>").appendTo(table);
+        var accessoryCell = $("<td></td>").appendTo(row);
+        var amountCell = $("<td></td>").appendTo(row);
+        var priceCell = $("<td></td>").appendTo(row);
 
-        accessoryCell.innerHTML = name;
-        amountCell.innerHTML = amount;
-        priceCell.innerHTML = "$" + price;
+        accessoryCell.html(name);
+        amountCell.html(amount);
+        priceCell.html("$" + price);
 
         updateTotalPrice(price, amount);
       }
@@ -78,8 +88,10 @@
       }
 
       function updateTotalPrice(price, amount) {
-        var totalPrice = document.getElementById("totalPrice");
-        var totalVat = document.getElementById("totalVat");
+        // var totalPrice = document.getElementById("totalPrice");
+        var totalPrice = $("#totalPrice");
+        // var totalVat = document.getElementById("totalVat");
+        var totalVat = $("#totalVat");
 
         //Calculate total price
         netPrice += price * amount;
@@ -87,8 +99,10 @@
         //Calculate total vat
         netVat = netPrice * 0.07;
 
-        totalPrice.textContent = netPrice + netVat;
-        totalVat.textContent = netVat.toFixed(2);
+        // totalPrice.textContent = netPrice + netVat;
+        // totalVat.textContent = netVat.toFixed(2);
+        totalPrice.text(netPrice + netVat);
+        totalVat.text(netVat.toFixed(2));
       }
     </script>
   </body>
