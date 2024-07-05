@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accessories shop</title>
     <link rel="stylesheet" href="./css/global.css" />
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
     <h1>Car Accessories</h1>
@@ -44,32 +50,50 @@
     <script>
       var netPrice = 0;
       var netVat = 0;
+      var id = 0;
+      var productList = [];
 
       function addToProductList() {
-        // var accessory = document.getElementById("accessories").value;
-        var accessory = $("#accessories").val();
-
-        // var name =
-        //   document.getElementById("accessories").options[
-        //     document.getElementById("accessories").selectedIndex
-        //   ].text;
-        var name = $("#accessories option:selected").text();
-        // var amount = document.getElementById("amount").value;
+        var accessoryValue = $("#accessories").val();
+        var accessoryName = $("#accessories option:selected").text();
         var amount = $("#amount").val();
-        var price = calculatePrice(accessory);
+        var price = calculatePrice(accessoryValue);
 
-        // var table = document.getElementById("productList");
+        productList.push({
+          id: (id += 1),
+          name: accessoryName,
+          value: accessoryValue,
+          amount: amount,
+          price: price,
+        });
+        // console.log(id);
+        // console.log(productList);
+
+        let newest = productList.length - 1;
+        // console.log(newest);
+        renderTable();
+        updateTotalPrice(productList[newest].price, productList[newest].amount);
+      }
+
+      function renderTable() {
         var table = $("#productList");
-        var row = $("<tr></tr>").appendTo(table);
-        var accessoryCell = $("<td></td>").appendTo(row);
-        var amountCell = $("<td></td>").appendTo(row);
-        var priceCell = $("<td></td>").appendTo(row);
+        let data = productList.map((product) => {
+          return `
+        <tr>
+        <th>${product.name}</th>
+        <th>${product.amount}</th>
+        <th>${product.price}</th>
+        <td><button type="button" class="btn btn-danger" onclick="deleteItem(${product.id})">X</button></td>
+        </tr>`;
+        });
 
-        accessoryCell.html(name);
-        amountCell.html(amount);
-        priceCell.html("$" + price);
+        // Clear existing table rows while keeping the header
+        $("#productList tr:not(:first)").remove();
 
-        updateTotalPrice(price, amount);
+        for (let index = 0; index < data.length; index++) {
+          const element = data[index];
+          table.append(element);
+        }
       }
 
       function calculatePrice(accessory) {
@@ -88,9 +112,8 @@
       }
 
       function updateTotalPrice(price, amount) {
-        // var totalPrice = document.getElementById("totalPrice");
+        // ----- jQuery -----
         var totalPrice = $("#totalPrice");
-        // var totalVat = document.getElementById("totalVat");
         var totalVat = $("#totalVat");
 
         //Calculate total price
@@ -99,11 +122,57 @@
         //Calculate total vat
         netVat = netPrice * 0.07;
 
-        // totalPrice.textContent = netPrice + netVat;
-        // totalVat.textContent = netVat.toFixed(2);
         totalPrice.text(netPrice + netVat);
         totalVat.text(netVat.toFixed(2));
+      }
+
+      function deleteItem(id) {
+        productList = productList.filter((product) => product.id !== id);
+
+        renderTable();
       }
     </script>
   </body>
 </html>
+
+<script>
+  // Old version
+
+  // function addToProductList() {
+  // ------ DOM version ------
+  //    var accessory = document.getElementById("accessories").value;
+  //    var name =
+  //      document.getElementById("accessories").options[
+  //       document.getElementById("accessories").selectedIndex
+  //        ].text;
+  //    var amount = document.getElementById("amount").value;
+  //    var price = calculatePrice(accessory);
+  //    var table = document.getElementById("productList");
+
+  //  ------ jQuery -------
+  //   var accessory = $("#accessories").val();
+  //   var name = $("#accessories option:selected").text();
+
+  //   var amount = $("#amount").val();
+  //   var price = calculatePrice(accessory);
+
+  //   var table = $("#productList");
+  //   var row = $("<tr></tr>").appendTo(table);
+  //   var accessoryCell = $("<td></td>").appendTo(row);
+  //   var amountCell = $("<td></td>").appendTo(row);
+  //   var priceCell = $("<td></td>").appendTo(row);
+  //   var delButton = $("<button>X</button>").appendTo(row);
+
+  //   accessoryCell.html(name);
+  //   amountCell.html(amount);
+  //   priceCell.html("$" + price);
+
+  //   updateTotalPrice(price, amount);
+  // }
+
+  // ----- Update total price -----
+  // var totalPrice = document.getElementById("totalPrice");
+  // var totalVat = document.getElementById("totalVat");
+  // totalPrice.textContent = netPrice + netVat;
+  // totalVat.textContent = netVat.toFixed(2);=
+</script>
