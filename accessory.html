@@ -69,10 +69,8 @@
         // console.log(id);
         // console.log(productList);
 
-        let newest = productList.length - 1;
-        // console.log(newest);
         renderTable();
-        updateTotalPrice(productList[newest].price, productList[newest].amount);
+        updateTotalPrice();
       }
 
       function renderTable() {
@@ -111,13 +109,16 @@
         }
       }
 
-      function updateTotalPrice(price, amount) {
+      function updateTotalPrice() {
         // ----- jQuery -----
         var totalPrice = $("#totalPrice");
         var totalVat = $("#totalVat");
 
         //Calculate total price
-        netPrice += price * amount;
+        netPrice = productList.reduce(
+          (total, item) => total + item.amount * item.price,
+          0
+        );
 
         //Calculate total vat
         netVat = netPrice * 0.07;
@@ -130,6 +131,7 @@
         productList = productList.filter((product) => product.id !== id);
 
         renderTable();
+        updateTotalPrice();
       }
     </script>
   </body>
