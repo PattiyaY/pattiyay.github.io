@@ -20,7 +20,15 @@
   <body>
     <h1>Car Accessories</h1>
 
-    <form id="accessoryForm">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#orderAccessory"
+    >
+      Click here to make an order
+    </button>
+    <!-- <form id="accessoryForm">
       <label for="accessories">Select car accessories</label>
       <select id="accessories" name="accessories">
         <option value="1">Car Cover</option>
@@ -32,8 +40,8 @@
       <label for="amount">Amount</label>
       <input type="number" id="amount" name="amount" />
       <br />
-      <button type="button" onclick="addToProductList()">Add</button>
-    </form>
+
+    </form> -->
 
     <h2>Product List</h2>
     <table id="productList">
@@ -46,6 +54,60 @@
 
     <p class="total">Total vat (7%): $<span id="totalVat"></span></p>
     <p class="total">Total price : $<span id="totalPrice"></span></p>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="orderAccessory"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Order Car Accessory
+            </h1>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="accessoryForm">
+              <label for="accessories">Select car accessories</label>
+              <select id="accessories" name="accessories">
+                <option value="1">Car Cover</option>
+                <option value="2">Seat Covers</option>
+                <option value="3">Floor Mats</option>
+                <option value="4">Door Visor</option>
+              </select>
+              <br />
+              <label for="amount">Amount</label>
+              <input type="number" id="amount" name="amount" required />
+              <br />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              onclick="addToProductList()"
+            >
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
       var netPrice = 0;
